@@ -2957,7 +2957,7 @@ textarea.form-control-lg {
     display: flex;
     flex-wrap: inherit;
     align-items: center;
-    justify-content: space-between; }
+    justify-content: space-around; }
 
 .navbar-brand {
   padding-top: 0.3125rem;
@@ -2985,7 +2985,7 @@ textarea.form-control-lg {
 
 .navbar-collapse {
   flex-basis: 100%;
-  flex-grow: 1;
+  /*flex-grow: 1;*/
   align-items: center; }
 
 .navbar-toggler {
