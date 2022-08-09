@@ -39,6 +39,8 @@ public class OwnerSDJpaService implements OwnerService {
 
     @Override
     public Owner save(Owner object) {
+
+        System.out.println("############# to check if Spring Data JPA is working....");
         return ownerRepository.save(object);
     }
 
