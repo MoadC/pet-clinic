@@ -47,7 +47,7 @@ class OwnerControllerTest {
 
         mockMvc.perform(get("/owners"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("owners/index"))
+                .andExpect(view().name("owners/findOwners"))
                 .andExpect(model().attribute("owners", hasSize(2)));
     }
 
@@ -55,7 +55,7 @@ class OwnerControllerTest {
     void findOwners() throws Exception {
         mockMvc.perform(get("/owners/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("notimplemented"));
+                .andExpect(view().name("owners/findOwners"));
         verifyNoInteractions(ownerService);
     }
 }
