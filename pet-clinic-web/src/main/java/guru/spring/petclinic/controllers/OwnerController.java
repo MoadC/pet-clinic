@@ -12,9 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.util.List;
 
+
+@RequestMapping("/owners")
 @Controller
 public class OwnerController {
-
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
     private final OwnerService ownerService;
@@ -24,26 +25,18 @@ public class OwnerController {
     }
 
     @InitBinder
-    public void setAllowedFields(WebDataBinder dataBinder){
+    public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
 
-    /*@RequestMapping({"/owners", "/owners/index"})
-    public String listOwners(Model model){
 
-        model.addAttribute("owners", ownerService.findAll());
-
-        return "owners/index";
-    }*/
-
-    @RequestMapping({"/owners/find","/oups" })
+    @RequestMapping("/find")
     public String findOwners(Model model){
         model.addAttribute("owner", Owner.builder().build());
-
         return "owners/findOwners";
     }
 
-    @GetMapping("/owners")
+    @GetMapping
     public String processFindForm(Owner owner, BindingResult result, Model model){
         // allow parameterless GET request for /owners to return all records
         if (owner.getLastName() == null) {
@@ -68,20 +61,20 @@ public class OwnerController {
         }
     }
 
-    @GetMapping("owners/{ownerId}")
+    @GetMapping("/{ownerId}")
     public ModelAndView showOwner(@PathVariable Long ownerId) {
         ModelAndView mav = new ModelAndView("owners/ownerDetails");
         mav.addObject(ownerService.findById(ownerId));
         return mav;
     }
 
-    @GetMapping("owners/new")
+    @GetMapping("/new")
     public String initCreationForm(Model model) {
         model.addAttribute("owner", Owner.builder().build());
         return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
     }
 
-    @PostMapping("owners/new")
+    @PostMapping("/new")
     public String processCreationForm(@Valid Owner owner, BindingResult result) {
         if (result.hasErrors()) {
             return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
@@ -91,13 +84,13 @@ public class OwnerController {
         }
     }
 
-    @GetMapping("owners/{ownerId}/edit")
+    @GetMapping("/{ownerId}/edit")
     public String initUpdateOwnerForm(@PathVariable Long ownerId, Model model) {
         model.addAttribute(ownerService.findById(ownerId));
         return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
     }
 
-    @PostMapping("owners/{ownerId}/edit")
+    @PostMapping("/{ownerId}/edit")
     public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable Long ownerId) {
         if (result.hasErrors()) {
             return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
